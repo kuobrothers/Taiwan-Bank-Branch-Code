@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="myApp" class="no-js"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Taiwan Bank Branch Code Demo</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body ng-controller="ctrl">
+	銀行：<select ng-change="change()" ng-model="bank" ng-options="b.bank_name for b in banks"></select><br />
+	分行：<select ng-model="branch" ng-options="br.branch_name for br in bank.branches"></select>
+	<pre style="background: #eee;padding:15px;">
+
+		bank: {{bank}}
+
+		branch: {{branch}}
+	</pre>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.3/angular.js"></script>
+	<script>
+		angular.module('myApp', []).controller('ctrl', function($scope, $http, $timeout) {
+			$http.get('./data.json').success(function(res) {
+				$scope.banks = res;	
+				$scope.bank = $scope.banks['000'];
+				$scope.change = function() {
+					for(var i in $scope.bank.branches) {
+						$scope.branch = $scope.bank.branches[i];
+						break;
+					}
+				};
+				$timeout($scope.change);
+			});
+		});
+	</script>
+</body>
+</html>
