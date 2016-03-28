@@ -1,6 +1,6 @@
 # Taiwan-Bank-Branch-Code
 
-example data:
+example data :
 ```
 {  
     "000":{  
@@ -15,3 +15,4 @@ example data:
     }
 }
 ```
+資料來源 : 金管會銀行局資料 ( http://goo.gl/evLhGi )
